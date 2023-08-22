@@ -1,0 +1,69 @@
+package org.program.service;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+import org.program.entity.NewCar;
+import org.program.repository.NewCarRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+@Service
+public class NewCarService {
+
+	@Autowired
+	private NewCarRepository carRepository;
+
+	public NewCar findCarById(int id) {
+		return carRepository.findByNewCarId(id);
+	}
+
+	public void updateCarService(int newCarId, String modelName, String modelBrand, String modelType, String price,
+			String mileage, String fuelType, String transmission, String modelYear, String description,
+			MultipartFile carImage) throws IOException {
+		Optional<NewCar> optional = carRepository.findById(newCarId);
+		NewCar car = new NewCar();
+		car = optional.get();
+
+		car.setModelName(modelName);
+		car.setModelBrand(modelBrand);
+		car.setModelType(modelType);
+		car.setPrice(price);
+		car.setMileage(mileage);
+		car.setFuelType(fuelType);
+		car.setTransmission(transmission);
+		car.setModelYear(modelYear);
+		car.setDescription(description);
+		car.setCarImage(carImage.getBytes());
+
+		carRepository.save(car);
+
+	}
+
+	public List<NewCar> getAllNewCarsService() {
+
+		return carRepository.findAll();
+
+	}
+
+	public List<NewCar> getNewCarBySearch(String modelName) {
+
+		return carRepository.findByModelName(modelName);
+	}
+
+	public void deleteNewCarService(int newCarId) {
+		carRepository.deleteById(newCarId);
+	}
+
+	public List<NewCar> searchCarByPriceAndTypeService( String minPrice, String maxPrice, String modelType) {
+		String price2 = "2.%";
+		String price3 = "3.%";
+		String price4 = "4.%";
+		return carRepository.searchCarByPriceAndType(minPrice,price2,price3,price4, maxPrice, modelType);
+
+	}
+
+}

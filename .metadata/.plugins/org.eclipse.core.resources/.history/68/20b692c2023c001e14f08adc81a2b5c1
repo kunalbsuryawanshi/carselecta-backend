@@ -1,0 +1,13 @@
+package org.program.entity;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+public class Rating {
+	private int ratingId;
+	private int rating;
+	@OneToMany
+	@JoinColumn(name = "user_id")
+	private User user;
+}

@@ -1,0 +1,32 @@
+package org.program.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class NewCar {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "new_car_id")
+	private int newCarId;
+	private String modelName;
+	private String modelBrand;
+	private String modelType;
+	private double price;
+	private double mileage;
+	private String fuelType;
+	private String transmission;
+	private String modelYear;
+	private Date dateOfLaunch;
+	private String description;
+	@ManyToOne
+	@JoinColumn(name = "admin_id")
+	private Admin admin;
+}

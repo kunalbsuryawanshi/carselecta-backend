@@ -1,0 +1,25 @@
+package org.program.repository;
+
+import java.util.List;
+
+import org.program.entity.NewCar;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+public interface NewCarRepository extends JpaRepository<NewCar, Integer>{
+//	public List<NewCar>
+	
+	public List<NewCar> findByModelName(String modelName);
+	public List<NewCar> findByModelType(String modelTpe);
+	public List<NewCar> findByModelBrand(String modelBrand);
+	public List<NewCar> findByModelYear(String modelYear);
+	public NewCar findByNewCarId(int newCarId);
+	
+//	@Query("update FacultyLogin f set f.password=?1 where f.username=?2")
+	@Query("update NewCar c set c.modelName=?2, c.modelBrand=?3, c.modelType=?4, c.price=?5, c.mileage=?6, c.fuelType=?7, c.transmission=?8, c.modelYear=?9, c.description=?10 where c.newCarId=?1")
+	@Modifying
+	@Transactional
+	public void updateNewCarById(int id);
+}

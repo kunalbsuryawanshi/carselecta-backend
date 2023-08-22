@@ -1,0 +1,23 @@
+package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.program.entity.Admin;
+import org.program.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class CarselectaBackendApplicationTests {
+
+	@Autowired
+	private AdminRepository repo;
+	@Test
+	void contextLoads() {
+		Admin admin = new Admin();
+		admin.setUsername("admin");
+		admin.setPassword("admin");
+		repo.save(admin);
+		
+	}
+
+}

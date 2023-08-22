@@ -1,0 +1,17 @@
+package org.program.service;
+
+import org.program.entity.Admin;
+import org.program.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AdminService {
+	
+	@Autowired
+	private AdminRepository adminRepository;
+	
+	public void adminLoginService(Admin admin) {
+		
+	}
+}

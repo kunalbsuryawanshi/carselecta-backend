@@ -1,0 +1,23 @@
+package org.program.repository;
+
+import java.util.List;
+
+import org.program.entity.NewCar;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+public interface NewCarRepository extends JpaRepository<NewCar, Integer>{
+//	public List<NewCar>
+	
+	public List<NewCar> findByModelName(String modelName);
+	public List<NewCar> findByModelType(String modelTpe);
+	public List<NewCar> findByModelBrand(String modelBrand);
+	public List<NewCar> findByModelYear(String modelYear);
+	public NewCar findByNewCarId(int newCarId);
+
+	//("SELECT c FROM Car c WHERE (c.price >= :minPrice OR c.price <= :maxPrice) AND c.cartype = :cartype")
+	@Query("select c from NewCar c where(c.price like ?1 OR c.price like ?2) AND c.modelType = ?3")
+	public List<NewCar> searchCarByPriceAndType(String minPrice, String maxPrice, String modelType, String price4, String price5, String price6);
+	
+	
+}

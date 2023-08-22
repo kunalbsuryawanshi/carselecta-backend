@@ -1,0 +1,10 @@
+package org.program.repository;
+
+import java.util.List;
+
+import org.program.entity.NewCar;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface NewCarRepository extends JpaRepository<NewCar, Integer>{
+//	public List<NewCar>
+}
