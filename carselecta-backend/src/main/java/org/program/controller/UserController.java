@@ -32,5 +32,14 @@ public class UserController {
 	public User getUserDetails(@RequestParam String email) {
 		return userService.getUserDetailsService(email);
 	}
+	
+	@PostMapping("/update-user-details")
+	public void updateUserDetails(@RequestBody User user) {
+		userService.updateUserDetailsService(user);
+	}
+	@GetMapping("/add-user-address")
+	public void addUserAddress(@RequestParam String address, String email) {
+		userService.addUserAddressService(address, email);
+	}
 
 }

@@ -14,12 +14,15 @@ public interface NewCarRepository extends JpaRepository<NewCar, Integer>{
 	public List<NewCar> findByCarBrand(String carBrand);
 	public List<NewCar> findByModelYear(String modelYear);
 	
-	List<NewCar> findAllByNewCarIdIn(List<Integer> carIds);
+	public List<NewCar> findByFuelTypeAndCarName(String fuelType, String carName);
 	
+	public List<NewCar> findByCarNameAndTransmission(String carName, String transmission);
+
 	public NewCar findByNewCarId(int newCarId);
 	
 	
+	
 	@Query("select c from NewCar c where c.carPrice between ?1 and ?2 and c.carType=?3")
-	public List<NewCar> searchCarByPriceAndType(double minPrice, double maxPrice, String modelTyp);
+	public List<NewCar> searchCarByPriceAndType(double minPrice, double maxPrice, String modelType);
 	
 }

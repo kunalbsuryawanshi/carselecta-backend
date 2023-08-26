@@ -1,8 +1,11 @@
 package org.program.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.program.entity.CarPricing;
 import org.program.entity.NewCar;
 import org.program.service.NewCarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,12 +73,12 @@ public class NewCarController {
 	}
 	
 	@PostMapping("/search-by-model-name")
-	public List<NewCar> searchByModelName(@RequestParam("carName") String carName) {
-		return newCarService.searchByModelNameService(carName);
+	public List<NewCar> searchByCarName(@RequestParam("carName") String carName) {
+		return newCarService.searchByCarNameService(carName);
 	}
 	@PostMapping("/search-by-model-type")
-	public List<NewCar> searchByModelType(@RequestParam("carType") String carType) {
-		return newCarService.searchByModelTypeService(carType);
+	public List<NewCar> searchByCarType(@RequestParam("carType") String carType) {
+		return newCarService.searchByCarTypeService(carType);
 	}
 	@PostMapping("/search-by-brand-name")
 	public List<NewCar> searchByBrandName(@RequestParam("carBrand") String carBrand) {
@@ -98,7 +101,7 @@ public class NewCarController {
 	
 	
 	@GetMapping("/find-car-by-id")
-	public NewCar findCar(@RequestParam String newCarId) {
+	public Map<String, Object> findCar(@RequestParam String newCarId) {
 		return newCarService.findCarById(Integer.parseInt(newCarId));
 	}
 //	
@@ -181,6 +184,26 @@ public class NewCarController {
 		
 	}
 	
+	@GetMapping("/get-car-images")
+	public List<NewCar> getCarImages(@RequestParam String carName){
+		return newCarService.searchByCarNameService(carName);
+	}
+	
+	@GetMapping("/get-car-by-car-name")
+	public Map<String, Object> getCarsByCarName(@RequestParam String carName) {
+		return newCarService.getCarsByCarName(carName);
+	}
+	
+	@GetMapping("/get-car-by-fuel-type")
+	public Map<String, Object> getCarsByFuelTypeAndCarName(@RequestParam String fuelType, @RequestParam String carName) {
+		return newCarService.getCarsByFuelTypeAndCarName(fuelType, carName);
+	}
+	
+	@GetMapping("/get-car-by-transmission")
+	public Map<String, Object> getCarsByTransmissionAndCarName(@RequestParam String transmission, @RequestParam String carName) {
+		return newCarService.getCarsByTransmissionAndCarName(transmission, carName);
+	}
+	
 	
 	
 	
@@ -197,17 +220,3 @@ public class NewCarController {
 	
 	
 }
-/*
- * <option value="Hatchback">Hatchback</option>
-                      <option value="Sedan">Sedan</option>
-                      <option value="SUV">SUV</option>
-                      <option value="MUV">MUV</option>
-                      <option value="Luxury">Luxury</option>
-                      <option value="Hybrid">Hybrid</option>
-                      <option value="Electric">Electric</option>
-                      <option value="Minivan">Minivan</option>
-                      <option value="Wagon">Wagon</option>
- * 
- * 
- * 
- * */

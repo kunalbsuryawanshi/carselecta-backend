@@ -41,9 +41,8 @@ class CarselectaBackendApplicationTests {
 	@Test
 	void contextLoads() {
 		
-		NewCar car = newCarRepository.findByNewCarId(4);
-		System.out.println(car.getCarPricing());
-//		System.out.println(carPricingRepository.findByNewCarNewCarId(4));
+		NewCar newCar = newCarRepository.findByNewCarId(38);
+		System.out.println(newCar.getCarPricing());
 	}
 
 }

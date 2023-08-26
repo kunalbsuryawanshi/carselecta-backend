@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class CarPricing {
@@ -26,6 +29,21 @@ public class CarPricing {
 	private double onRoadPrice;
 	private String EMI;
 
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "new_car_id")
+	private NewCar newCar;
+
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "used_car_id")
+	private UsedCar usedCar;
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "admin_id")
+	private Admin admin;
+
 	public String getEMI() {
 		return EMI;
 	}
@@ -33,19 +51,6 @@ public class CarPricing {
 	public void setEMI(String eMI) {
 		EMI = eMI;
 	}
-
-	@OneToOne
-	@JoinColumn(name = "new_car_id")
-	@JsonBackReference
-	private NewCar newCar;
-
-	@OneToOne
-	@JoinColumn(name = "used_car_id")
-	private UsedCar usedCar;
-
-	@ManyToOne
-	@JoinColumn(name = "admin_id")
-	private Admin admin;
 
 	public int getId() {
 		return carPricingId;
@@ -133,7 +138,5 @@ public class CarPricing {
 				+ roadTax + ", insurance=" + insurance + ", otherCharges=" + otherCharges + ", optionalCharges="
 				+ optionalCharges + ", onRoadPrice=" + onRoadPrice + ", EMI=" + EMI + "]";
 	}
-	
-	
 
 }

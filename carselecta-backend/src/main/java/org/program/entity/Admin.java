@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Admin {
 	@Id
@@ -18,10 +20,12 @@ public class Admin {
 	private int adminId;
 	private String username;
 	private String password;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
 	private List<NewCar> cars;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "admin")
 	private List<CarPricing> carPricings;
 

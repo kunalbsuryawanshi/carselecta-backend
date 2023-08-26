@@ -43,7 +43,21 @@ public class UserService {
 	}
 
 	public User getUserDetailsService(String email) {
-		
-		return userRepository.findByEmail(email);
+		User user1 = userRepository.findByEmail(email);
+		byte[] dPassword = Base64.getDecoder().decode(user1.getPassword());
+		user1.setPassword(new String(dPassword));
+
+		return user1;
+	}
+
+	public void updateUserDetailsService(User user) {
+		byte[] password = Base64.getEncoder().encode(user.getPassword().getBytes());
+		user.setPassword(new String(password));
+		userRepository.save(user);
+	}
+	public void addUserAddressService(String address, String email) {
+		User user = userRepository.findByEmail(email);
+		user.setAddress(address);
+		userRepository.save(user);
 	}
 }

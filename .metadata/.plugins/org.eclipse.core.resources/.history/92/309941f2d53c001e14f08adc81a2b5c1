@@ -1,8 +1,0 @@
-package org.program.repository;
-
-import org.program.entity.NewCar;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface NewCarRepository extends JpaRepository<NewCar, Integer>{
-
-}

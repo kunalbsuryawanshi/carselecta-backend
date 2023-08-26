@@ -24,6 +24,7 @@ public class User {
 	private String city;
 	private String state;
 	private String password;
+	@Column(length = 2000)
 	private String address;
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")

@@ -1,8 +1,11 @@
 package org.program.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.program.entity.Admin;
@@ -66,12 +69,13 @@ public class NewCarService {
 		carRepository.save(car);
 	}
 
-	public List<NewCar> searchByModelNameService(String carName) {
+	public List<NewCar> searchByCarNameService(String carName) {
+		
 		return carRepository.findByCarName(carName);
 
 	}
 
-	public List<NewCar> searchByModelTypeService(String carType) {
+	public List<NewCar> searchByCarTypeService(String carType) {
 		return carRepository.findByCarType(carType);
 
 	}
@@ -86,11 +90,13 @@ public class NewCarService {
 		return carRepository.findByModelYear(modelYear);
 	}
 
-	public NewCar findCarById(int id) {
-//		CarPricing carPricing = carPricingRepository.findByNewCarNewCarId(id);
-		 NewCar newCar = carRepository.findByNewCarId(id);
-//		 newCar.setCarPricing(carPricing);
-		 return newCar;
+	public Map<String, Object> findCarById(int id) {
+		
+		NewCar newCar = carRepository.findByNewCarId(id);
+		Map<String, Object> response = new HashMap<>();
+		response.put("newCar", newCar);
+	    response.put("carPricing", newCar.getCarPricing());
+	    return response;
 	}
 //
 //	public void updateCarService(int newCarId, String carName, String modelBrand, String modelType, double carPrice,
@@ -131,9 +137,48 @@ public class NewCarService {
 //	}
 //
 	public List<NewCar> searchCarByPriceAndTypeService(double minPrice, double maxPrice, String modelType) {
+		
 		return carRepository.searchCarByPriceAndType(minPrice, maxPrice, modelType);
 
 
 	}
+
+	public Map<String, Object> getCarsByCarName(String carName) {
+		List<NewCar> newCars = carRepository.findByCarName(carName);
+		Map<String, Object> map = new HashMap<>();
+		List<CarPricing> carPricings = new ArrayList<>();
+		for (NewCar newCar : newCars) {
+			carPricings.add(newCar.getCarPricing());
+		}
+		map.put("newCar", newCars);
+		map.put("carPricing", carPricings);
+		return map;
+		
+	}
+
+	public Map<String, Object> getCarsByFuelTypeAndCarName(String fuelType, String carName) {
+		List<NewCar> newCars = carRepository.findByFuelTypeAndCarName(fuelType,carName);
+		Map<String, Object> map = new HashMap<>();
+		List<CarPricing> carPricings = new ArrayList<>();
+		for (NewCar newCar : newCars) {
+			carPricings.add(newCar.getCarPricing());
+		}
+		map.put("newCar", newCars);
+		map.put("carPricing", carPricings);
+		return map;
+	}
+
+	public Map<String, Object> getCarsByTransmissionAndCarName(String transmission, String carName) {
+		List<NewCar> newCars = carRepository.findByCarNameAndTransmission(carName,transmission);
+		Map<String, Object> map = new HashMap<>();
+		List<CarPricing> carPricings = new ArrayList<>();
+		for (NewCar newCar : newCars) {
+			carPricings.add(newCar.getCarPricing());
+		}
+		map.put("newCar", newCars);
+		map.put("carPricing", carPricings);
+		return map;
+	}
+
 
 }

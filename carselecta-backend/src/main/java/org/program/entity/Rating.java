@@ -16,6 +16,7 @@ public class Rating {
 	
 	private int score;	
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "new_car_id")
 	private NewCar newCar;

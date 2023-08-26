@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class NewCar {
@@ -47,23 +48,22 @@ public class NewCar {
 	
 	@JsonIgnore
 	@OneToOne(mappedBy = "newCar", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("newCar")
 	private CarPricing carPricing;
-
+	
+	@JsonIgnore
 	@ManyToOne
-//	@JsonManagedReference
-	@JsonIgnoreProperties("newCar")
 	@JoinColumn(name = "admin_id")
 	private Admin admin;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "newCar")
 	private List<Rating> ratings;
+	@JsonIgnore
 	
 	@OneToMany(mappedBy = "newCar")
 	private List<Review> reviews;
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "newCar")
     private List<WishList> wishLists;
 
@@ -219,9 +219,15 @@ public class NewCar {
 	public void setWishLists(List<WishList> wishLists) {
 		this.wishLists = wishLists;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "NewCar [newCarId=" + newCarId + ", carName=" + carName + ", carBrand=" + carBrand + ", carType="
+				+ carType + ", carPrice=" + carPrice + "]";
+	}
+	
+	
+	
 	
 
 }

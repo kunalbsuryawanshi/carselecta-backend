@@ -25,7 +25,7 @@ public class WishList {
 	@Column(name = "wishlist_id")
 	private int id;
 	
-//	@JsonIgnore
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "used_car_id")
 	private UsedCar usedCar;
