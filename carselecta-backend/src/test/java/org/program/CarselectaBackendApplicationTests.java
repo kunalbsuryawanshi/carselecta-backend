@@ -1,5 +1,8 @@
 package org.program;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,11 +10,15 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.program.entity.Admin;
 import org.program.entity.NewCar;
+import org.program.entity.Rating;
+import org.program.entity.Review;
 import org.program.entity.User;
 import org.program.entity.WishList;
 import org.program.repository.AdminRepository;
 import org.program.repository.CarPricingRepository;
 import org.program.repository.NewCarRepository;
+import org.program.repository.RatingRepository;
+import org.program.repository.ReviewRepository;
 import org.program.repository.UserRepository;
 import org.program.repository.WishListRepository;
 //import org.program.repository.AdminRepository;
@@ -32,17 +39,41 @@ class CarselectaBackendApplicationTests {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private AdminRepository adminRepository;
-	
+
 	@Autowired
 	private CarPricingRepository carPricingRepository;
+	@Autowired
+	private RatingRepository ratingRepository;
+	@Autowired
+	private ReviewRepository reviewRepository;
+
 	@Test
 	void contextLoads() {
+
+//		LocalDate currentDate = LocalDate.now();
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+//		String formattedDate = currentDate.format(formatter);
+//
+//		System.out.println("Formatted Date: " + formattedDate);
+//		List<Rating> ratings = ratingRepository.findAllByNewCar_NewCarId(38);
+//		int i = 0;
+//		double totalRating = 0;
+//		for (Rating rating : ratings) {
+//			i++;
+//			totalRating += rating.getScore();
+//		}
+//		double averageRating = totalRating/i;
+//		DecimalFormat decimalFormat = new DecimalFormat("#.##");
+//		String formattedAverageRating = decimalFormat.format(averageRating);
+//		System.out.println(formattedAverageRating);
+		List<Rating> ratings = ratingRepository.findAllByNewCar_NewCarId(38);
+		List<Review> reviews = reviewRepository.findAllByNewCar_NewCarId(38);
+		ratings.forEach(System.out::println);
+		reviews.forEach(System.out::println);
 		
-		NewCar newCar = newCarRepository.findByNewCarId(38);
-		System.out.println(newCar.getCarPricing());
 	}
 
 }

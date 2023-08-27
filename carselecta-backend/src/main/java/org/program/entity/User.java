@@ -32,6 +32,9 @@ public class User {
 	
 	@OneToMany(mappedBy = "user")
     private List<Rating> ratings;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Review> review;
 
 	public int getUserId() {
 		return userId;
@@ -119,6 +122,11 @@ public class User {
 
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 
 
