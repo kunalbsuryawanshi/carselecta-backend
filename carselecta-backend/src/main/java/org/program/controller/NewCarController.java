@@ -90,6 +90,10 @@ public class NewCarController {
 		return newCarService.searchByModelYearService(modelYear);
 	}
 	
+	@GetMapping("/get-same-type-cars")
+	public List<NewCar> getSameBrandCars(@RequestParam String carType) {
+		return newCarService.searchByCarTypeService(carType);
+	}
 	
 	
 	
@@ -117,25 +121,25 @@ public class NewCarController {
 //		newCarService.updateCarService(Integer.parseInt(newCarId), modelName, modelBrand, modelType, price, mileage, fuelType, transmission, modelYear, description, carImage);
 //	}
 //	
-//	@GetMapping("/get-all-cars")
-//	public List<NewCar> getAllNewCars() {
-//		
-//		return newCarService.getAllNewCarsService();
-//	}
-//	@PostMapping("/get-all-cars-for-update")
-//	public List<NewCar> getAllCars() {
-//		
-//		return newCarService.getAllNewCarsService();
-//	}
+	@GetMapping("/get-all-cars")
+	public List<NewCar> getAllNewCars() {
+		
+		return newCarService.getAllNewCarsService();
+	}
+	@PostMapping("/get-all-cars-for-update")
+	public List<NewCar> getAllCars() {
+		
+		return newCarService.getAllNewCarsService();
+	}
 //	@GetMapping("/get-car-by-search")
 //	public List<NewCar> getCarBySearch(@RequestParam String modelName) {
 //		return null;
 //	}
 //	
-//	@GetMapping("/delete-car-by-id")
-//	public void deleteNewCar(@RequestParam String newCarId) {
-//		newCarService.deleteNewCarService(Integer.parseInt(newCarId));
-//	}
+	@GetMapping("/delete-car-by-id")
+	public void deleteNewCar(@RequestParam String newCarId) {
+		newCarService.deleteNewCarService(Integer.parseInt(newCarId));
+	}
 //	
 	@PostMapping("/Hatchback")
 	public List<NewCar> searchCarByType1(@RequestParam("minPrice") String minPrice, @RequestParam("maxPrice") String maxPrice, @RequestParam("modelType") String modelType){

@@ -27,6 +27,10 @@ public class UserController {
 	public int userLogin(@RequestBody User user) {
 		return userService.userLoginService(user);
 	}
+	@PostMapping("/user-forgot-password")
+	public int userForgotPassword(@RequestBody User user) {
+		return userService.userForgotPassword(user);
+	}
 	
 	@GetMapping("/get-user-details")
 	public User getUserDetails(@RequestParam String email) {

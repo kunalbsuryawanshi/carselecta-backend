@@ -121,20 +121,20 @@ public class NewCarService {
 //
 //	}
 //
-//	public List<NewCar> getAllNewCarsService() {
-//
-//		return carRepository.findAll();
-//
-//	}
+	public List<NewCar> getAllNewCarsService() {
+
+		return carRepository.findAll();
+
+	}
 //
 //	public List<NewCar> getNewCarBySearch(String modelName) {
 //
 //		return carRepository.findByModelName(modelName);
 //	}
 //
-//	public void deleteNewCarService(int newCarId) {
-//		carRepository.deleteById(newCarId);
-//	}
+	public void deleteNewCarService(int newCarId) {
+		carRepository.deleteById(newCarId);
+	}
 //
 	public List<NewCar> searchCarByPriceAndTypeService(double minPrice, double maxPrice, String modelType) {
 		

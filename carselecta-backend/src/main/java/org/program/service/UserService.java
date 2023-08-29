@@ -42,6 +42,19 @@ public class UserService {
 		return 500;
 	}
 
+	public int userForgotPassword(User user) {
+
+		User user1 = userRepository.findByEmail(user.getEmail());
+
+		if (user1 != null) {
+			byte[] password = Base64.getEncoder().encode(user.getPassword().getBytes());
+			user1.setPassword(new String(password));
+			userRepository.save(user1);
+			return 200;
+		}
+		return 500;
+	}
+
 	public User getUserDetailsService(String email) {
 		User user1 = userRepository.findByEmail(email);
 		byte[] dPassword = Base64.getDecoder().decode(user1.getPassword());
@@ -55,6 +68,7 @@ public class UserService {
 		user.setPassword(new String(password));
 		userRepository.save(user);
 	}
+
 	public void addUserAddressService(String address, String email) {
 		User user = userRepository.findByEmail(email);
 		user.setAddress(address);
