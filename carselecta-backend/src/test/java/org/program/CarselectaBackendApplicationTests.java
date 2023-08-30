@@ -5,7 +5,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.junit.jupiter.api.Test;
 import org.program.entity.Admin;
@@ -27,6 +37,8 @@ import org.program.repository.WishListRepository;
 //import org.program.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @SpringBootTest
 class CarselectaBackendApplicationTests {
@@ -50,30 +62,40 @@ class CarselectaBackendApplicationTests {
 	@Autowired
 	private ReviewRepository reviewRepository;
 
+	@Autowired
+	private JavaMailSender emailSender;
+
+	  final String username = "kunalbsuryawanshi@gmail.com";
+      final String password = "KBS@2482000$!";
+
 	@Test
 	void contextLoads() {
-
-//		LocalDate currentDate = LocalDate.now();
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-//		String formattedDate = currentDate.format(formatter);
-//
-//		System.out.println("Formatted Date: " + formattedDate);
-//		List<Rating> ratings = ratingRepository.findAllByNewCar_NewCarId(38);
-//		int i = 0;
-//		double totalRating = 0;
-//		for (Rating rating : ratings) {
-//			i++;
-//			totalRating += rating.getScore();
-//		}
-//		double averageRating = totalRating/i;
-//		DecimalFormat decimalFormat = new DecimalFormat("#.##");
-//		String formattedAverageRating = decimalFormat.format(averageRating);
-//		System.out.println(formattedAverageRating);
-		List<Rating> ratings = ratingRepository.findAllByNewCar_NewCarId(38);
-		List<Review> reviews = reviewRepository.findAllByNewCar_NewCarId(38);
-		ratings.forEach(System.out::println);
-		reviews.forEach(System.out::println);
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 		
+		Session session = Session.getInstance(props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+		
+
+		 try {
+	            Message message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress(username));
+	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("recipient@example.com"));
+	            message.setSubject("Test Subject");
+	            message.setText("This is a test email from Java.");
+
+	            Transport.send(message);
+
+	            System.out.println("Email sent successfully.");
+	        } catch (MessagingException e) {
+	            e.printStackTrace();
+	        }
 	}
 
 }
